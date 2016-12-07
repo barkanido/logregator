@@ -1,19 +1,17 @@
 buildscript {
     repositories { jcenter() }
     dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 apply plugin: 'idea'
 apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.github.johnrengelman.shadow'
 
-dependencyManagement {
-    imports {
-        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.10.47'
-    }
-}
+
+
+
 
 if (!JavaVersion.current().java8Compatible) {
     throw new IllegalStateException('''A Haiku:
@@ -24,27 +22,39 @@ if (!JavaVersion.current().java8Compatible) {
 
 repositories {
     mavenCentral()
+    maven {
+        url = 'http://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 
 dependencies {
     compile "org.slf4j:slf4j-log4j12:1.7.12"
-	compile "org.slf4j:slf4j-api:1.7.12"
-	compile "log4j:log4j:1.2.17"
-    compile 'com.amazonaws:aws-java-sdk-s3'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "org.slf4j:slf4j-api:1.7.12"
+    compile "log4j:log4j:1.2.17"
+    compile 'com.amazonaws:aws-java-sdk-bom:1.10.47'
 }
 
-
+shadowJar {
+    classifier = 'fat'
+    manifest {
+        attributes 'Main-Class': 'com.tikal.logregator.LogProcessor'
+    }
+    mergeServiceFiles {
+        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+    }
+}
 
 task zipAll(type: Tar) {
     extension = 'tar.gz'
     from '.'
-	baseName = 'logregator'
+    baseName = 'as-device-manager'
     include 'conf/**'
     include '*.sh'
     include 'build/libs/*.jar'
 }
+
+
 
 
 task wrapper(type: Wrapper) {
