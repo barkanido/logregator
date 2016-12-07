@@ -14,9 +14,12 @@ public class LogEntry {
 
 	private static String regex = "([^ ]*) ([^ ]*) ([^ ]*):([0-9]*) (-|[^ :]*):?([0-9]*)? (-?[.0-9]*) (-?[.0-9]*) (-?[.0-9]*) (-|[0-9]*) (-|[0-9]*) ([-0-9]*) ([-0-9]*) \"([^ ]*) ([^ ]*) (- |[^ ]*)\"(?: \"(.*)\" (-|[^ ]*) (-|[^ ]*))?$";
 
+	private static String urlRegexp = "^http[s]*://(.*):\\d+/(.*)$";
+
 	private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'.'SSSSSS'Z'", Locale.US);
 	private static final Pattern pattern = Pattern.compile(regex);
-
+	private static final Pattern urlPattern = Pattern.compile(urlRegexp);
+//
 
 	private long epochTime;
 	private String elbName;
@@ -69,6 +72,15 @@ public class LogEntry {
 			logger.error("Bad log entry {}",line);
 			return null;
 		}
+
+		String url = matcher.group(15);
+		Matcher urlMatcher = urlPattern.matcher(url);
+		if (!urlMatcher.matches()){
+			logger.error("Bad log entry {}",line);
+			return null;
+		}
+		String path = urlMatcher.group(1);
+
 		return new LogEntry(LocalDateTime.parse(matcher.group(1), df).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
 				matcher.group(2),
 				matcher.group(5),
@@ -77,7 +89,7 @@ public class LogEntry {
 				Integer.valueOf(matcher.group(10)),
 				Integer.valueOf(matcher.group(11)),
 				matcher.group(14),
-				matcher.group(15)
+				path
 		);
 	}
 
