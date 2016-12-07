@@ -1,11 +1,19 @@
 buildscript {
     repositories { jcenter() }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE"
+    }
 }
 
 apply plugin: 'idea'
 apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 
-
+dependencyManagement {
+    imports {
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.10.47'
+    }
+}
 
 if (!JavaVersion.current().java8Compatible) {
     throw new IllegalStateException('''A Haiku:
@@ -23,6 +31,8 @@ dependencies {
     compile "org.slf4j:slf4j-log4j12:1.7.12"
 	compile "org.slf4j:slf4j-api:1.7.12"
 	compile "log4j:log4j:1.2.17"
+    compile 'com.amazonaws:aws-java-sdk-s3'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 
