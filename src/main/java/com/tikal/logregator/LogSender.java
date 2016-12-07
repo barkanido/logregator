@@ -82,6 +82,7 @@ public class LogSender extends AbstractVerticle{
         ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, System.currentTimeMillis(), message);
 
         producer.send(record);
+        producer.flush();
     }
 
     private Properties getKafkaConfig() {
