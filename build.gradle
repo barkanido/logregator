@@ -33,6 +33,8 @@ dependencies {
     compile "org.slf4j:slf4j-api:1.7.12"
     compile "log4j:log4j:1.2.17"
     compile 'com.amazonaws:aws-java-sdk-bom:1.10.47'
+    compile 'org.apache.kafka:kafka-clients:0.10.0.1'
+    compile group: 'io.vertx', name: 'vertx-core', version: '3.3.3'
 }
 
 shadowJar {
