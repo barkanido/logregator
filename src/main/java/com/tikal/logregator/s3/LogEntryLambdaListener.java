@@ -37,6 +37,7 @@ public class LogEntryLambdaListener implements RequestHandler<S3Event, String> {
             String srcKey = record.getS3().getObject().getKey();
 
             try {
+                logger.info("Param from env:" + System.getenv("TEST_KEY"));
                 S3Object s3Object = s3Client.getObject(new GetObjectRequest(
                         srcBucket, srcKey));
 
