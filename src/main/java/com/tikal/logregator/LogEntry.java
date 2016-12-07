@@ -1,5 +1,7 @@
 package com.tikal.logregator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,15 +23,23 @@ public class LogEntry {
 	private static final Pattern urlPattern = Pattern.compile(urlRegexp);
 //
 
+	@JsonProperty
 	private long epochTime;
+	@JsonProperty
 	private String elbName;
+	@JsonProperty
 	private String backendIP;
+	@JsonProperty
 	private  float requestProcessingTimeInSec;
+	@JsonProperty
 	private  float backendProcessingTimeInSec;
+	@JsonProperty
 	private int elbHttpErrorCode;
+	@JsonProperty
 	private int backendHttpErrorCode;
-
+	@JsonProperty
 	private String httpMethod;
+	@JsonProperty
 	private String url;
 
 	@Override

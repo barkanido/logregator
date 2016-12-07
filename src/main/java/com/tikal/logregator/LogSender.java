@@ -21,8 +21,8 @@ public class LogSender extends AbstractVerticle{
     public static String EVENTBUS_ADDRESS = "eventbus.address";
     public static String TOPIC = "elblogs";
 
-    //public static String KAFKA_IP = "35.158.66.211:9092" ;
-    public static String KAFKA_IP = "localhost:9092" ;
+    public static String KAFKA_IP = "35.158.66.211:9092" ;
+//    public static String KAFKA_IP = "localhost:9092" ;
 
 
     private Producer producer;
