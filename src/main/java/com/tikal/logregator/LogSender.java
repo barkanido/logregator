@@ -22,7 +22,7 @@ public class LogSender extends AbstractVerticle{
     public static String TOPIC = "elblogs2";
 
 //    public static String KAFKA_IP = "35.156.190.87:9092" ;
-    public static String KAFKA_IP = System.getenv("KAFKA_ADDRESS");
+    public String KAFKA_IP = "";
 //    public static String KAFKA_IP = "localhost:9092" ;
 
 
@@ -36,6 +36,10 @@ public class LogSender extends AbstractVerticle{
     }
 
     public LogSender() {
+        KAFKA_IP = System.getenv("KAFKA_ADDRESS");
+        if (KAFKA_IP == null) {
+            KAFKA_IP = "35.156.190.87:9020";
+        }
         Properties properties = getKafkaConfig();
 
         //producer = new KafkaProducer(properties);
