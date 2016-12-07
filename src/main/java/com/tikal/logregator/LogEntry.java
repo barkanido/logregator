@@ -2,7 +2,6 @@ package com.tikal.logregator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +23,7 @@ public class LogEntry {
 //
 
 	@JsonProperty
-	private long epochTime;
+	private long timestamp;
 	@JsonProperty
 	private String elbName;
 	@JsonProperty
@@ -45,7 +44,7 @@ public class LogEntry {
 	@Override
 	public String toString() {
 		return "LogEntry{" +
-				"epochTime=" + epochTime +
+				"timestamp=" + timestamp +
 				", elbName='" + elbName + '\'' +
 				", backendIP='" + backendIP + '\'' +
 				", requestProcessingTimeInSec=" + requestProcessingTimeInSec +
@@ -57,7 +56,7 @@ public class LogEntry {
 				'}';
 	}
 
-	public LogEntry(long epochTime,
+	public LogEntry(long timestamp,
 					String elbName,
 					String backendIP,
 					float requestProcessingTimeInSec,
@@ -65,7 +64,7 @@ public class LogEntry {
 					int elbHttpErrorCode,
  					int backendHttpErrorCode,
 					String httpMethod, String url) {
-		this.epochTime = epochTime;
+		this.timestamp = timestamp;
 		this.elbName = elbName;
 		this.backendIP = backendIP;
 		this.requestProcessingTimeInSec = requestProcessingTimeInSec;
