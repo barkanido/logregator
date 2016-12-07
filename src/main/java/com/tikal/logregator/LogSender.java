@@ -38,7 +38,7 @@ public class LogSender extends AbstractVerticle{
     public LogSender() {
         KAFKA_IP = System.getenv("KAFKA_ADDRESS");
         if (KAFKA_IP == null) {
-            KAFKA_IP = "35.156.190.87:9020";
+            KAFKA_IP = "35.156.190.87:9092";
         }
         Properties properties = getKafkaConfig();
 
