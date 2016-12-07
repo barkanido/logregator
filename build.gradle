@@ -29,7 +29,7 @@ dependencies {
 	compile "org.slf4j:slf4j-api:1.7.12"
 	compile "log4j:log4j:1.2.17"
     compile 'com.amazonaws:aws-java-sdk-bom:1.10.47'
-    compile 'org.apache.kafka:kafka-clients:0.10.0.1'
+    compile group: 'org.apache.kafka', name: 'kafka_2.11', version: '0.8.2.2'
     compile group: 'io.vertx', name: 'vertx-core', version: '3.3.3'
     compile 'com.amazonaws:aws-java-sdk-s3'
     compile 'com.amazonaws:aws-lambda-java-core:1.1.0'
